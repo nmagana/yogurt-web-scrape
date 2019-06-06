@@ -25,8 +25,20 @@ urlPage = 'https://groceries.asda.com/search/yogurt'
 # Make sure to have geckodriver installed in your $PATH for Mac
 driver = webdriver.Firefox()
 driver.get(urlPage)
+
+# Set up timer to allow webpage to load first
+time.sleep(5)
+
 # This code scrolls the webpage to the bottom of the screen
 # This helps because the browser may not load until we scroll to the bottom
 driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
+
 # We also wait 30s in order to make sure the whole website is loaded
 time.sleep(30)
+
+# Using the xpath, we can grab the items from the web page
+results = len(driver.find_elements_by_xpath("//*[@id='componentsContainer']//div[@class='product-content']"))
+print("Number of results on Webpage: ", results)
+
+# Quit driver when finished
+driver.quit()
